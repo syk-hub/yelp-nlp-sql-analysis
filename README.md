@@ -96,10 +96,16 @@ Python 3.x • PostgreSQL
 ## Repo Structure (suggested)
 ```
 .
-├── 04_analysis_milestone3_clean.ipynb
-├── sample_business.csv
-├── sample_review.csv
-├── requirements.txt
-├── README.md
-└── src/ (optional helpers)
+yelp-coffee-tea/
+├─ README.md
+├─ requirements.txt
+├─ notebooks/
+│  ├─ 04_analysis_yelp_clean.ipynb
+│  └─ make_samples.ipynb        ← (optional helper, see #3)
+├─ data/
+│  ├─ samples/                  ← generated here (CSV outputs)
+│  └─ raw/                      ← (optional) where full Yelp JSONs live (not committed)
+└─ scripts/
+   └─ make_samples.py           ← (optional CLI; same logic as the notebook cell)
+
 ```
