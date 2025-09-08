@@ -1,89 +1,105 @@
-# yelp-nlp-sql-analysis
-Exploratory analysis of Yelp reviews using SQL joins, NLP, and visualization.
-# Yelp NLP + SQL Analysis
+# Yelp Coffee & Tea Analysis (with NLP)
 
-## Overview
-This project explores the **Yelp Academic Dataset** to uncover patterns in business reviews and ratings.  
-It combines:
-- **Structured analysis** (SQL joins, aggregations)
-- **Exploratory data analysis** (visualizations, correlations)
-- **Basic NLP** (review text cleaning and sentiment scoring)
+This project explores the Yelp Academic Dataset for **Coffee & Tea** businesses, combining SQL + Python with **NLP** on reviews to understand what drives customer satisfaction and visibility.
 
-The goal is to demonstrate end-to-end data handling:  
-📊 SQL-style joins → 🐼 Pandas transformations → 📈 Visual storytelling.
+## Dataset & Pipeline
+- **Source**: [Yelp Academic Dataset](https://www.yelp.com/dataset)  
+- **Scope**: Coffee & Tea businesses + their reviews  
+- **Stack**: Jupyter, PostgreSQL, SQLAlchemy, pandas, scikit-learn (TF-IDF)  
+- **ETL**: JSON → Postgres raw tables → reduced/cleaned tables → analysis & NLP
 
----
+## Final Sample Sizes (Full Dataset)
+- **Businesses**: 150,346 total → **6,704** Coffee & Tea  
+- **Reviews (Coffee & Tea)**: **442,356** (from 6,990,280 total reviews)
 
-# Yelp SQL Project Data
-
-This project demonstrates loading and analyzing the [Yelp Academic Dataset](https://www.yelp.com/dataset) with PostgreSQL and Python.
-
-## Full Results
-Using the full dataset provided by Yelp:
-- Businesses loaded: **150,346**
-- Coffee & Tea businesses: **6,704**
-- Reviews loaded: **6,990,280**
-- Coffee & Tea businesses: **442,356**
-
-All analysis and insights in the notebook are based on the full dataset.
-
-## Sample Data (for demonstration)
-Because the full Yelp dataset is very large (GBs), this repo includes two small CSV files:
-- `sample_business.csv` (100 businesses)
-- `sample_review.csv` (≈300 reviews)
-
-These samples allow anyone to:
-- Load the data into PostgreSQL
-- Run through the notebook without needing the full dataset
-- Validate that the pipeline (ETL, table creation, queries) works correctly
-
-⚠️ Note: The sample data is not representative. Counts and results will differ from the full dataset.
-
-## How to Reproduce
-1. Clone this repo
-2. Install requirements
-3. Run the notebook with the sample CSVs **or** download the full Yelp dataset and update the file paths.
-
+> The repo also ships with **small sample CSVs** so anyone can run the pipeline without downloading the full dataset. Results from the sample will differ from the full data.
 
 ---
 
-## Methods
-1. **Data Preparation**
-   - Loaded business and review tables.
-   - Cleaned columns, derived flags (e.g., Urban vs. Non-Urban).
-   - Created a *Predicted vs. Actual Stars (PAS)* metric.
+## Hypotheses & Outcomes (Summary)
+1) **Popularity vs. Rating** — More reviews do **not** depress ratings; if anything, shops with more reviews have **slightly higher** ratings (modest positive correlation).  
+2) **Urban vs. Non-Urban** — Urban shops show **higher ratings** and **more reviews** on average.  
+3) **Amenities/Price vs. Rating** — Amenities (Wi-Fi, outdoor seating, etc.) have **weak** relationships with ratings; price level alone is not a strong predictor.
 
-2. **SQL Joins via SQLite**
-   - Demonstrated joins between business and reviews.
-   - Queried aggregated stats (average stars, review counts).
-
-3. **Analysis**
-   - Explored relationships between review count and star rating.
-   - Compared ratings across urban vs. non-urban businesses.
-   - Identified “hidden gems” outperforming expectations.
-
-4. **Visualization**
-   - Boxplots, scatter plots with fitted lines.
-   - Ranked bar chart of top businesses by PAS.
+**Takeaway**: Reputation is driven less by amenity checklists and more by **experience/operations** (what happens during the visit), which the **text** of reviews makes very clear.
 
 ---
 
-## Results
+## NLP: Methods & Findings
 
-### Stars by Urban vs. Non-Urban
-![Urban vs Non-Urban](images/stars_by_urban.png)
+### What We Did
+- **Preprocessing**: lowercasing, punctuation removal, stop-word removal, optional lemmatization.
+- **Vectorization**: **TF-IDF** on unigrams and bigrams (n-gram range (1,2)), min-df to filter rare noise.
+- **Labeling**: Split reviews into **positive (≥4★)** vs **negative (≤2★)** buckets for contrastive term mining.  
+- **Inspection**: Top TF-IDF terms per bucket; simple frequency checks for operational terms (e.g., *order, time, minutes, drive-thru*).
 
-### Stars vs. Review Count
-![Stars vs Review Count](images/stars_vs_review_count.png)
+### What We Found
+- **Positive reviews** frequently emphasize **taste & hospitality**:  
+  *coffee, espresso, latte, delicious, love, favorite, friendly, staff, cozy, ambiance, breakfast, pastry*
+- **Negative reviews** center on **operational friction**:  
+  *order, time, minutes, wait, line, drive, drive-thru, mobile, wrong, cold, manager, rude*
+- **Interpretation**:  
+  - High ratings cluster around **product quality** and **staff warmth**.  
+  - Low ratings are dominated by **speed/accuracy** failures and **queue management**.  
+  - This aligns with the hypothesis results: **operations** are the highest-leverage lever.
 
-### Hidden Gems by PAS
-![Hidden Gems](images/hidden_gems.png)
+### Why TF-IDF (and not just counts)?
+TF-IDF down-weights ubiquitous words and surfaces **distinctive** terms within each rating bucket, making contrasts clearer (e.g., “minutes” or “drive-thru” punch above their raw frequency in low-rating reviews).
+
+### Practical Metrics (Prototypes)
+- **Friction Index**: share of tokens from an ops-friction dictionary (*order, wait, minutes, wrong, cold, refund, drive-thru*) — track over time/by location.  
+- **PAS (Price- & Attention-Adjusted Satisfaction)**: deviation of actual stars from a baseline predicted by review count + price band — highlights “overperformers.”
+
+### Limitations
+- TF-IDF is **bag-of-words**: no context, sarcasm, or negation handling.  
+- Rating buckets simplify a continuum; future work can model per-sentence sentiment or aspects (service, taste, price).
+
+### How to Extend (Ideas)
+- **Aspect-based sentiment** (service vs. taste vs. ambiance) using weak supervision or rule-based patterns.  
+- **Topic modeling** (LDA or BERTopic) for themes beyond ops vs. taste.  
+- **Transformer sentiment** (e.g., distilBERT) to capture context/negation.  
+- **Queue-time signals**: build richer “Friction Index” with bigrams (*long wait, wrong order, mobile order*).
 
 ---
 
-## How to Run
-1. Clone this repo:
-   ```bash
-   git clone https://github.com/your-username/yelp-nlp-sql-analysis.git
-   cd yelp-nlp-sql-analysis
+## Real Results (Full Dataset)
+- **Businesses**: **6,704** Coffee & Tea  
+- **Reviews**: **442,356**  
+- **Key insights**: modest positive popularity–rating correlation; urban advantage; amenities weak; **NLP shows operations (speed/accuracy) drive dissatisfaction**, while **taste & friendliness** drive praise.
 
+---
+
+## Sample Data in This Repo
+To keep the repo lightweight, we include:
+- `sample_business.csv` (≈100 rows)
+- `sample_review.csv` (≈300 rows)
+
+These demonstrate the **pipeline** (ETL → SQL → analysis/NLP).  
+Counts and charts will **not** match the full dataset.
+
+---
+
+## Reproduce Locally
+1. **PostgreSQL** running locally.  
+2. `pip install -r requirements.txt`  
+3. Open the notebook; it will prompt for your DB password (no secrets in code).  
+4. Run with the sample CSVs **or** download the full Yelp dataset and point paths to the JSON files.
+
+---
+
+## Requirements
+Python 3.x • PostgreSQL  
+`sqlalchemy`, `psycopg2-binary`, `pandas`, `tqdm`, `scikit-learn`, `numpy`, `matplotlib` (and optionally `nltk` for lemmatization/stopwords).
+
+---
+
+## Repo Structure (suggested)
+```
+.
+├── 04_analysis_milestone3_clean.ipynb
+├── sample_business.csv
+├── sample_review.csv
+├── requirements.txt
+├── README.md
+└── src/ (optional helpers)
+```
