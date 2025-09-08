@@ -14,7 +14,7 @@ The goal is to demonstrate end-to-end data handling:
 
 ---
 
-# Yelp SQL Capstone Project
+# Yelp SQL Project Data
 
 This project demonstrates loading and analyzing the [Yelp Academic Dataset](https://www.yelp.com/dataset) with PostgreSQL and Python.
 
@@ -22,7 +22,8 @@ This project demonstrates loading and analyzing the [Yelp Academic Dataset](http
 Using the full dataset provided by Yelp:
 - Businesses loaded: **150,346**
 - Coffee & Tea businesses: **6,704**
-- Reviews loaded: **X,XXX,XXX** (insert your real number here)
+- Reviews loaded: **6,990,280**
+- Coffee & Tea businesses: **442,356**
 
 All analysis and insights in the notebook are based on the full dataset.
 
