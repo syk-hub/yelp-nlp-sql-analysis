@@ -14,11 +14,35 @@ The goal is to demonstrate end-to-end data handling:
 
 ---
 
-## Dataset
-- Source: [Yelp Open Dataset](https://www.yelp.com/dataset) (~8GB JSON files).  
-- For reproducibility, this repo includes **sample datasets** (`business_sample.csv`, `review_sample.csv`).  
-- The full dataset was used for original analysis, but is too large to host on GitHub.  
-- Results may differ slightly between the sample and the full dataset.
+# Yelp SQL Capstone Project
+
+This project demonstrates loading and analyzing the [Yelp Academic Dataset](https://www.yelp.com/dataset) with PostgreSQL and Python.
+
+## Full Results
+Using the full dataset provided by Yelp:
+- Businesses loaded: **150,346**
+- Coffee & Tea businesses: **6,704**
+- Reviews loaded: **X,XXX,XXX** (insert your real number here)
+
+All analysis and insights in the notebook are based on the full dataset.
+
+## Sample Data (for demonstration)
+Because the full Yelp dataset is very large (GBs), this repo includes two small CSV files:
+- `sample_business.csv` (100 businesses)
+- `sample_review.csv` (≈300 reviews)
+
+These samples allow anyone to:
+- Load the data into PostgreSQL
+- Run through the notebook without needing the full dataset
+- Validate that the pipeline (ETL, table creation, queries) works correctly
+
+⚠️ Note: The sample data is not representative. Counts and results will differ from the full dataset.
+
+## How to Reproduce
+1. Clone this repo
+2. Install requirements
+3. Run the notebook with the sample CSVs **or** download the full Yelp dataset and update the file paths.
+
 
 ---
 
