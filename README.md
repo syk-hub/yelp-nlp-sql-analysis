@@ -74,6 +74,10 @@ To keep the repo lightweight, we include:
 - `sample_business.csv` (≈100 rows)
 - `sample_review.csv` (≈300 rows)
 
+- Sample data (100 businesses, 300 reviews) is stored in data/raw_data/ 
+and regenerates automatically from the SQL script in notebooks/.
+
+
 These demonstrate the **pipeline** (ETL → SQL → analysis/NLP).  
 Counts and charts will **not** match the full dataset.
 
