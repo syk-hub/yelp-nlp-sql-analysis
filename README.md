@@ -3,7 +3,7 @@
 This project explores the [Yelp Open Dataset](https://www.yelp.com/dataset) with a focus on **Coffee & Tea** businesses.  
 The goal: uncover what truly drives customer satisfaction and visibility.  
 
-We combine **SQL + Python** for structured data analysis and **NLP (TF-IDF)** for unstructured review text.  
+I combine **SQL + Python** for structured data analysis and **NLP (TF-IDF)** for unstructured review text.  
 The result: a reproducible pipeline and interpretable insights about how reputation is shaped.
 
 ---
@@ -112,3 +112,39 @@ These metrics could be tracked by location or over time to flag “hidden gems�
 2. Clone this repo and install requirements:  
    ```bash
    pip install -r requirements.txt
+3. Open the notebook in notebooks/, update DB password when prompted.
+4. Run pipeline with included samples or download the full Yelp dataset.
+
+---
+
+## Repo Structure
+
+yelp-nlp-sql-analysis/
+├─ README.md
+├─ requirements.txt
+├─ notebooks/
+│  ├─ analysis_yelp_clean.ipynb
+│  └─ make_samples.ipynb
+├─ data/
+│  ├─ raw_data/
+│  │   ├─ sample_business.csv
+│  │   ├─ sample_review.csv
+│  │   └─ (place Yelp JSONs here if using full dataset)
+├─ report/
+│  ├─ ratings_vs_reviews.png
+│  ├─ amenities_vs_ratings.png
+│  └─ nlp_terms.png
+
+---
+
+## Takeaway
+
+Reputation in the Coffee & Tea sector is less about amenities or price bands, and more about operational execution:
+- speed of service,
+- accuracy of orders,
+- and staff friendliness.
+  
+This blend of SQL analysis and NLP insights provides a roadmap for operators to monitor both structured data (ratings, counts) and unstructured text (reviews) in order to surface actionable signals.
+
+
+
