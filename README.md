@@ -127,7 +127,6 @@ yelp-nlp-sql-analysis/
 ├─ requirements.txt
 ├─ notebooks/
 │  ├─ analysis_yelp_clean.ipynb
-│  └─ make_samples.ipynb
 ├─ data/
 │  └─ raw_data/
 │     ├─ sample_business.csv
@@ -135,6 +134,7 @@ yelp-nlp-sql-analysis/
 ├─ images/
 │  ├─ stars_vs_review_count.png
 │  └─ stars_urban_vs_nonurban.png
+
 ```
 
 ---
