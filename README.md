@@ -1,10 +1,13 @@
 # Yelp Coffee & Tea Analysis (with SQL + NLP)
 
 This project explores the [Yelp Open Dataset](https://www.yelp.com/dataset) with a focus on **Coffee & Tea** businesses.  
-The goal: uncover what truly drives customer satisfaction and visibility.  
+
+Coffee shops thrive or fail based on how customers perceive them, and reviews are the most visible signal of that reputation.  
+By combining SQL for structured business metrics with NLP for unstructured review text, this project uncovers what really drives satisfaction versus dissatisfaction. The goal is to give both business operators and data science learners an interpretable roadmap for turning raw reviews into actionable insights.  
 
 I combine **SQL + Python** for structured data analysis and **NLP (TF-IDF)** for unstructured review text.  
-The result: a reproducible pipeline and interpretable insights about how reputation is shaped.
+The result is a reproducible pipeline and interpretable insights about how reputation is shaped.
+
 
 ---
 
@@ -112,7 +115,7 @@ These metrics could be tracked by location or over time to flag â€œhidden gemsâ€
 
 1. Install [PostgreSQL](https://www.postgresql.org/download/) locally.  
 2. Clone this repo and install requirements:  
-   ```bash
+    ```bash
    pip install -r requirements.txt
 3. Open the notebook in notebooks/, update DB password when prompted.
 4. Run pipeline with included samples or download the full Yelp dataset.
