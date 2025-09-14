@@ -117,6 +117,8 @@ These metrics could be tracked by location or over time to flag â€œhidden gemsâ€
 3. Open the notebook in notebooks/, update DB password when prompted.
 4. Run pipeline with included samples or download the full Yelp dataset.
 
+Sample dataset is generated at the end of analysis_yelp_clean.ipynb
+
 ---
 
 ## Repo Structure
