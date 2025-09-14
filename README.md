@@ -35,7 +35,7 @@ Shops with more reviews do not suffer rating dilution. In fact, the correlation 
   - <50 reviews → avg rating = 3.9★  
   - >500 reviews → avg rating = 4.2★
  
- 
+ ![Stars vs. Review Count](images/stars_vs_review_count.png)
 
 ---
 
