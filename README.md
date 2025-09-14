@@ -30,30 +30,28 @@ The result: a reproducible pipeline and interpretable insights about how reputat
 ## Key Findings
 
 ### 1. Popularity vs. Rating
-- Shops with more reviews enjoy *slightly higher ratings*.  
-- **Correlation (r):** ≈ +0.18 between review count and rating.  
+Shops with more reviews do not suffer rating dilution. In fact, the correlation was **+0.18**, meaning that higher visibility tends to coincide with slightly higher average stars.
 - Example:  
   - <50 reviews → avg rating = 3.9★  
-  - >500 reviews → avg rating = 4.2★  
-
-**Figure 1. Ratings vs. Reviews**  
-![Ratings vs Reviews](report/ratings_vs_reviews.png)
+  - >500 reviews → avg rating = 4.2★
+ 
+![Stars vs. Review Count](images/stars_vs_review_count.png) 
 
 ---
 
-### 2. Urban vs. Non-Urban Shops
+### 2. Urban vs. Non-Urban
+Coffee & Tea businesses in urban areas hold a stronger advantage: higher review counts and slightly higher average ratings. The effect is visible both in distributions and in mean values.
 - **Urban shops**: avg rating = 4.15★, ~3× more reviews.  
 - **Non-urban shops**: avg rating = 3.95★.  
 - Visibility is a key driver: volume and foot traffic matter.  
+
+![Stars by Urban vs. Non-Urban](images/stars_urban_vs_nonurban.png)
 
 ---
 
 ### 3. Amenities & Price
 - Amenities such as Wi-Fi, outdoor seating, or even price band had **weak correlations (r ≈ 0.05)** with ratings.  
 - In other words, these checklist features don’t explain much variance in satisfaction.  
-
-**Figure 2. Amenities/Price vs. Ratings**  
-![Amenities vs Ratings](report/amenities_vs_ratings.png)
 
 ---
 
@@ -74,8 +72,12 @@ The result: a reproducible pipeline and interpretable insights about how reputat
   - *order, time, minutes, wait, line, drive-thru, wrong, cold*  
   - TF-IDF weight in ≤2★ reviews ~0.030 vs. <0.006 in ≥4★  
 
-**Figure 3. Distinctive Terms by Rating Bucket**  
-![NLP Terms](report/nlp_terms.png)
+- **Distinctive Terms by Rating Bucket**
+  
+Term contrasts (TF-IDF): In ≥4★ reviews, quality/hospitality terms dominate (e.g., coffee, latte, delicious, friendly, cozy), with average TF-IDF weights around 0.020–0.030 and near-zero weights in the ≤2★ bucket. In ≤2★ reviews, operational friction terms lead (e.g., wait, minutes, line, wrong, cold, drive-thru), with average TF-IDF weights around 0.025–0.035 and near-zero in ≥4★ reviews. This numeric asymmetry supports the claim that execution (speed/accuracy) is the main driver of dissatisfaction, while product + warmth drive praise.
+
+High-rating (≥4★) top terms (avg TF-IDF): coffee (0.028), latte (0.024), delicious (0.022), friendly (0.021)
+Low-rating (≤2★) top terms (avg TF-IDF): minutes (0.031), wait (0.029), wrong (0.027), cold (0.026), drive-thru (0.025)
 
 ### Interpretation
 - **High ratings** are earned through product quality and friendly staff.  
@@ -119,6 +121,7 @@ These metrics could be tracked by location or over time to flag “hidden gems�
 
 ## Repo Structure
 
+```text
 yelp-nlp-sql-analysis/
 ├─ README.md
 ├─ requirements.txt
@@ -126,14 +129,13 @@ yelp-nlp-sql-analysis/
 │  ├─ analysis_yelp_clean.ipynb
 │  └─ make_samples.ipynb
 ├─ data/
-│  ├─ raw_data/
-│  │   ├─ sample_business.csv
-│  │   ├─ sample_review.csv
-│  │   └─ (place Yelp JSONs here if using full dataset)
-├─ report/
-│  ├─ ratings_vs_reviews.png
-│  ├─ amenities_vs_ratings.png
-│  └─ nlp_terms.png
+│  └─ raw_data/
+│     ├─ sample_business.csv
+│     └─ sample_review.csv
+├─ images/
+│  ├─ stars_vs_review_count.png
+│  └─ stars_urban_vs_nonurban.png
+```
 
 ---
 
